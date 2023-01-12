@@ -9,6 +9,7 @@ import Invoices from "./scenes/invoices";
 import Contacts from "./scenes/contacts";
 import Form from "./scenes/form";
 import Equipe from "./scenes/equipe";
+import Actions from "./scenes/equipe/actions.jsx";
 //import Bar from "./scenes/bar";
 //import Line from "./scenes/line";
 //import Pie from "./scenes/pie";
@@ -34,6 +35,7 @@ function App() {
               <Route path="/invoices" element={<Invoices />} /> 
               <Route path="/form" element={<Form />} /> 
               <Route path="/equipe" element={<Equipe />} /> 
+              <Route path="/user/:_id" element={<Actions />} /> 
               { /* <Route path="/bar" element={<Bar />} /> */ }
               { /* <Route path="/pie" element={<Pie />} /> */ }
               { /* <Route path="/line" element={<Line />} /> */ }

@@ -22,15 +22,15 @@ const Form = () => {
 
   return (
     <Box m="20px">
-      <Header title="CADASTRO DE EQUIPE" subtitle="Adicione membros para seu projeto" />
+      <Header title="CADASTRO DE EQUIPE" subtitle= "Adicione membros para seu projeto" />
 
       <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
+        onSubmit={handleFormSubmit} // em vez post, um put - _id na url 
+        initialValues={initialValues} // pegar de um estado (id de uma pessoa {_id}) (dar um get na API e colocar o resultado dentro do values)
         validationSchema={checkoutSchema}
       >
         {({
-          values,
+          values, 
           errors,
           touched,
           handleBlur,
@@ -127,7 +127,7 @@ const Form = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Adicionar Membro
               </Button>
             </Box>
           </form>

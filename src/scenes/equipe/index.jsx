@@ -1,22 +1,42 @@
 import { Box, Typography, Button, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataEquipe } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import axios from "axios"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 
 const apiUrl = "https://ironrest.cyclic.app/86_film-e"
 
-const Equipe = () => {
+const Equipe = () => { 
+  const [ listaEquipe, setListaEquipe ] = useState ([]);
+  
+  useEffect ( () => {
+
+    axios.get (apiUrl)
+      .then (response => {
+        let result = response.data.map ( item => { 
+          item.id = item._id
+          return item 
+        })
+        setListaEquipe (result)
+      })
+      .catch (error => console.log(error))
+
+
+  }, [])
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
     { 
     field: "id", 
     headerName: "ID",
-    flex: 0.2,
+    flex: 0.9,
     },
     {
       field: "nome",
@@ -51,7 +71,7 @@ const Equipe = () => {
       editable: true
     },
     {
-      field: "CNPJ",
+      field: "cnpj",
       headerName: "CNPJ",
       flex: 0.7,
       editable: true
@@ -61,23 +81,24 @@ const Equipe = () => {
       headerName: "Editor",
       flex: 1,
       renderCell: ({ row: { editor } }) => {
+        console.log (editor)
         return (
-           ( <Box display="flex" justifyContent="end" mt="5px">
-              <Button type="submit" color="Yellow" variant="contained">
-                Update
-              </Button>
+           ( <>
+           <Box>
+                  <Button type="submit" color="Yellow" variant="contained">
+                      <Link to ={`user/${editor}`} >
+                         Update
+                      </Link>
+                   </Button>
               <Button type="submit" color="red" variant="contained">
                 Deletar
               </Button>
-              <Button type="submit" color="red" variant="contained">
-                Visualizar
-              </Button>
-            </Box> )
+            </Box> </>
+          )
         );
       },
     },
   ];
-  
 
   return (
     <Box m="20px">
@@ -112,7 +133,7 @@ const Equipe = () => {
         }}
         
       >
-        <DataGrid checkboxSelection rows={mockDataEquipe} columns={columns} />
+        <DataGrid checkboxSelection rows={listaEquipe} columns={columns} />
 
         </Box>
             <Box display="flex" justifyContent="end" mt="10px">
