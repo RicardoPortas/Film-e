@@ -10,11 +10,12 @@ import Contacts from "./scenes/contacts";
 import Form from "./scenes/form";
 import Equipe from "./scenes/equipe";
 import Actions from "./scenes/equipe/actions.jsx";
+import Crud from "./scenes/crud";
 //import Bar from "./scenes/bar";
 //import Line from "./scenes/line";
 //import Pie from "./scenes/pie";
 //import Geography from "./scenes/geography";
-//import Calendar from "./scenes/calendar/calendar";
+//import Calendar from "./scenes/calendar";
 
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
               <Route path="/form" element={<Form />} /> 
               <Route path="/equipe" element={<Equipe />} /> 
               <Route path="/user/:_id" element={<Actions />} /> 
+              <Route path="/crud" element={<Crud />} /> 
+
               { /* <Route path="/bar" element={<Bar />} /> */ }
               { /* <Route path="/pie" element={<Pie />} /> */ }
               { /* <Route path="/line" element={<Line />} /> */ }

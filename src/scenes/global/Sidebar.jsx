@@ -188,6 +188,14 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+<             Item
+              title="CRUD"
+              to="/crud"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             <Typography
               variant="h6"
               color={colors.grey[300]}

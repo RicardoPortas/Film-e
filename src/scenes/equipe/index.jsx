@@ -1,9 +1,6 @@
-import { Box, Typography, Button, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import axios from "axios"
 import { useState, useEffect } from "react";
@@ -27,8 +24,8 @@ const Equipe = () => {
       })
       .catch (error => console.log(error))
 
-
   }, [])
+
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -80,13 +77,13 @@ const Equipe = () => {
       field: "Editor",
       headerName: "Editor",
       flex: 1,
-      renderCell: ({ row: { editor } }) => {
-        console.log (editor)
+      renderCell: ( params ) => {
+        console.log (params)
         return (
            ( <>
            <Box>
                   <Button type="submit" color="Yellow" variant="contained">
-                      <Link to ={`user/${editor}`} >
+                      <Link to ={`/user/${params.id}`} >
                          Update
                       </Link>
                    </Button>
@@ -99,6 +96,8 @@ const Equipe = () => {
       },
     },
   ];
+  
+console.log (listaEquipe)
 
   return (
     <Box m="20px">

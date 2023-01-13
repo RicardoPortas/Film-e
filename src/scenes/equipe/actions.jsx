@@ -18,13 +18,11 @@ const Form = () => {
 
   useEffect ( () => {
 
-    axios.get (apiUrl/_id)
+    axios.get (`${apiUrl}/${_id}`)
       .then (response => {
-        let result = response.data.map ( item => { 
-          item.id = item._id
-          return item 
-        })
-        setUser (result)
+
+
+        setUser (response.data)
       })
       .catch (error => console.log(error))
 
@@ -40,13 +38,18 @@ const Form = () => {
     console.log(values);
   };
 
+  if (!user) {
+    return <p>loading</p>
+
+  }
+
   return (
     <Box m="20px">
       <Header title="CADASTRO DE EQUIPE" subtitle= "Adicione membros para seu projeto" />
 
       <Formik
         onSubmit={handleFormSubmit} // em vez post, um put - _id na url 
-        initialValues={initialValues} // pegar de um estado (id de uma pessoa {_id}) (dar um get na API e colocar o resultado dentro do values)
+        initialValues={user} // pegar de um estado (id de uma pessoa {_id}) (dar um get na API e colocar o resultado dentro do values)
         validationSchema={checkoutSchema}
       >
         {({
