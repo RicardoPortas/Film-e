@@ -11,6 +11,7 @@ const apiUrl = "https://ironrest.cyclic.app/86_film-e"
 
 const Equipe = () => { 
   const [ listaEquipe, setListaEquipe ] = useState ([]);
+  const [ refresh, setRefresh ] = useState (false) 
   
   useEffect ( () => {
 
@@ -24,7 +25,18 @@ const Equipe = () => {
       })
       .catch (error => console.log(error))
 
-  }, [])
+  }, [refresh])
+
+
+  const deleteUser = id => {
+    
+   axios.delete(`${apiUrl}/${id}`)
+   .then(response => {
+      setRefresh(!refresh)
+   })
+   .cacth(err => console.log(err))
+  } 
+  
 
 
   const theme = useTheme();
@@ -77,7 +89,7 @@ const Equipe = () => {
       field: "Editor",
       headerName: "Editor",
       flex: 1,
-      renderCell: ( params ) => {
+      renderCell: (params) => {
         console.log (params)
         return (
            ( <>
@@ -87,8 +99,8 @@ const Equipe = () => {
                          Update
                       </Link>
                    </Button>
-              <Button type="submit" color="red" variant="contained">
-                Deletar
+              <Button type="submit" color="red" variant="contained" onClick = {() => {deleteUser (params.id)}} >
+                Deletar 
               </Button>
             </Box> </>
           )

@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import axios from "axios" 
 import { Api } from "@mui/icons-material";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const apiUrl = "https://ironrest.cyclic.app/86_film-e"
@@ -15,6 +15,7 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { _id } = useParams ()
   const [ user, setUser ] = useState ()
+  const navigate = useNavigate ()
 
   useEffect ( () => {
 
@@ -30,17 +31,18 @@ const Form = () => {
   }, [])
 
   const handleFormSubmit = (values) => {
-    
-    axios.put (apiUrl, values)
-      .then (response => {})
-      .catch (error => console.log(error))
-
-    console.log(values);
+    console.log(values)
+    delete values._id
+    axios.put (`${apiUrl}/${_id}`, values)
+      .then (response => { 
+        navigate ("/equipe")
+      })
+      .catch (error => console.log(error));
   };
+
 
   if (!user) {
     return <p>loading</p>
-
   }
 
   return (
@@ -52,6 +54,7 @@ const Form = () => {
         initialValues={user} // pegar de um estado (id de uma pessoa {_id}) (dar um get na API e colocar o resultado dentro do values)
         validationSchema={checkoutSchema}
       >
+    
         {({
           values, 
           errors,
@@ -150,7 +153,7 @@ const Form = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Adicionar Membro
+                Editar Membro
               </Button>
             </Box>
           </form>
